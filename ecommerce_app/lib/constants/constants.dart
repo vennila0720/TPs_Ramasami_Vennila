@@ -3,10 +3,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 void showMessage(String message) {
   Fluttertoast.showToast(
-      msg: message,
-      backgroundColor: const Color.fromARGB(255, 105, 34, 117),
-      textColor: Colors.white,
-      fontSize: 16.0);
+    msg: message,
+    backgroundColor: Color.fromARGB(255, 93, 24, 105),
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
 }
 
 showLoaderDialog(BuildContext context) {
@@ -18,7 +19,7 @@ showLoaderDialog(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           children: [
             const CircularProgressIndicator(
-              color: Color.fromARGB(255, 105, 34, 117),
+              color: Color(0xffe16555),
             ),
             const SizedBox(
               height: 18.0,

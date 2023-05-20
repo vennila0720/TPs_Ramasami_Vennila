@@ -1,8 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:ecommerce_app/constants/constants.dart';
+import 'package:ecommerce_app/constants/routes.dart';
+import 'package:ecommerce_app/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
+import 'package:ecommerce_app/screens/custom_bottom_bar/custome_bottom_bar.dart';
+import 'package:ecommerce_app/screens/home/home.dart';
+
 import 'package:ecommerce_app/widgets/primary_button/primary_button.dart';
 import 'package:ecommerce_app/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -18,7 +25,6 @@ class _SignUpState extends State<SignUp> {
 
   TextEditingController name = TextEditingController();
   TextEditingController phone = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,56 +35,56 @@ class _SignUpState extends State<SignUp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const TopTitles(
-                  subtitle: "Welcome back to SavvyChic",
-                  title: "Create an account"),
+                  subtitle: "Welcome Back To SavvyChic",
+                  title: "Create Account"),
               const SizedBox(
-                height: 25.0,
+                height: 46.0,
               ),
               TextFormField(
                 controller: name,
                 decoration: const InputDecoration(
-                  hintText: "Enter your name",
+                  hintText: "Enter your Name",
                   prefixIcon: Icon(
-                    Icons.person_2_outlined,
+                    Icons.person_outline,
                   ),
                 ),
               ),
               const SizedBox(
-                height: 25.0,
+                height: 12.0,
               ),
               TextFormField(
                 controller: email,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                  hintText: "Enter your e-mail",
+                  hintText: "Enter your E-mail",
                   prefixIcon: Icon(
                     Icons.email_outlined,
                   ),
                 ),
               ),
               const SizedBox(
-                height: 25.0,
+                height: 12.0,
               ),
               TextFormField(
                 controller: phone,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
-                  hintText: "Enter your phone number",
+                  hintText: "Enter your Phone",
                   prefixIcon: Icon(
                     Icons.phone_outlined,
                   ),
                 ),
               ),
               const SizedBox(
-                height: 25.0,
+                height: 12.0,
               ),
               TextFormField(
                 controller: password,
                 obscureText: isShowPassword,
                 decoration: InputDecoration(
-                  hintText: "Enter your password",
+                  hintText: "Enter your Password",
                   prefixIcon: const Icon(
-                    Icons.password_outlined,
+                    Icons.password_sharp,
                   ),
                   suffixIcon: CupertinoButton(
                       onPressed: () {
@@ -94,23 +100,27 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               const SizedBox(
-                height: 30.0,
+                height: 36.0,
               ),
               PrimaryButton(
                 title: "Create an account",
-                onPressed: () async {},
+                onPressed: () async {
+                  bool isValidated = signUpVaildation(
+                      email.text, password.text, name.text, phone.text);
+                  if (isValidated) {
+                    bool isLogined = await FirebaseAuthHelper.instance
+                        .SignUp(name.text, email.text, password.text, context);
+                    if (isLogined) {
+                      Routes.instance.pushAndRemoveUntil(
+                          widget: const CustomBottomBar(), context: context);
+                    }
+                  }
+                },
               ),
               const SizedBox(
-                height: 28.0,
+                height: 24.0,
               ),
-              const Center(
-                child: Text(
-                  "I already have an account?",
-                  style: TextStyle(
-                    fontSize: 20.0,
-                  ),
-                ),
-              ),
+              const Center(child: Text("I have already an account?")),
               const SizedBox(
                 height: 12.0,
               ),
@@ -120,14 +130,11 @@ class _SignUpState extends State<SignUp> {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    "Sign In",
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 19.0,
-                    ),
+                    "Login Here",
+                    style: TextStyle(color: Theme.of(context).primaryColor),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -135,5 +142,3 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
-
-class CustomButton {}

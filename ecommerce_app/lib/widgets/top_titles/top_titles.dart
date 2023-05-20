@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TopTitles extends StatelessWidget {
-  final String title;
-  final String subtitle;
+  final String title, subtitle;
   const TopTitles({super.key, required this.subtitle, required this.title});
 
   @override
@@ -11,21 +10,21 @@ class TopTitles extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
-          height: kToolbarHeight + 15,
+          height: kToolbarHeight + 12,
         ),
-        if (title == "Sign In" || title == "Create New Account")
+        if (title == "Login" || title == "Create Account")
           GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();
               },
-              child: const Icon(Icons.arrow_back_rounded)),
+              child: const Icon(Icons.arrow_back_ios)),
         const SizedBox(
           height: 12.0,
         ),
         Text(
           title,
           style: const TextStyle(
-            fontSize: 20.0,
+            fontSize: 18.0,
             fontWeight: FontWeight.bold,
           ),
         ),
